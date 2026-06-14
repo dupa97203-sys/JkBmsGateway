@@ -1,0 +1,4 @@
+-keep class fi.iki.elonen.** { *; }
+-keep class com.jkbms.gateway.** { *; }
+-keep class com.google.gson.** { *; }
+-keepattributes Signature,*Annotation*

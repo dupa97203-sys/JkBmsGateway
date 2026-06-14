@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D1117">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="⚡ JK BMS Gateway" android:textColor="#58A6FF"
+            android:textSize="22sp" android:textStyle="bold" android:layout_marginBottom="4dp"/>
+
+        <!-- Status -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:layout_marginBottom="4dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Status: " android:textColor="#8B949E" android:textSize="14sp"/>
+            <TextView android:id="@+id/tvStatus" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="DISCONNECTED"
+                android:textColor="#F85149" android:textSize="14sp" android:textStyle="bold"/>
+        </LinearLayout>
+
+        <TextView android:id="@+id/tvDevice" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="–"
+            android:textColor="#8B949E" android:textSize="12sp" android:fontFamily="monospace"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- API URL -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="API" android:textColor="#8B949E" android:textSize="10sp"
+            android:letterSpacing="0.1" android:layout_marginBottom="3dp"/>
+        <TextView android:id="@+id/tvApiUrl" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="http://–:8080/api"
+            android:textColor="#3FB950" android:textSize="12sp" android:fontFamily="monospace"
+            android:background="#161B22" android:padding="8dp" android:layout_marginBottom="4dp"/>
+        <TextView android:id="@+id/tvDashUrl" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="http://–:8080/"
+            android:textColor="#58A6FF" android:textSize="12sp" android:fontFamily="monospace"
+            android:background="#161B22" android:padding="8dp" android:layout_marginBottom="16dp"/>
+
+        <!-- Przyciski -->
+        <Button android:id="@+id/btnScan" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="🔍 Skanuj BLE"
+            android:backgroundTint="#238636" android:textColor="#FFFFFF" android:layout_marginBottom="8dp"/>
+
+        <Button android:id="@+id/btnDisconnect" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="■ Rozłącz"
+            android:backgroundTint="#21262D" android:textColor="#F85149" android:layout_marginBottom="8dp"/>
+
+        <Button android:id="@+id/btnBattery" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="🔋 Wyłącz optymalizację baterii"
+            android:backgroundTint="#21262D" android:textColor="#8B949E" android:layout_marginBottom="16dp"/>
+
+        <!-- Lista skanowanych urządzeń -->
+        <LinearLayout android:id="@+id/layoutDevices" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView android:id="@+id/tvScanStatus" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:text="Skanowanie..."
+                android:textColor="#D29922" android:textSize="13sp" android:layout_marginBottom="8dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDevices" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:nestedScrollingEnabled="false"
+                android:layout_marginBottom="16dp"/>
+        </LinearLayout>
+
+        <!-- Po połączeniu -->
+        <LinearLayout android:id="@+id/layoutConnected" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical"
+            android:visibility="gone">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="✓ Łączenie z urządzeniem..." android:textColor="#3FB950"
+                android:textSize="13sp" android:layout_marginBottom="16dp"/>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="#30363D" android:layout_marginBottom="16dp"/>
+
+        <!-- Dane BMS -->
+        <LinearLayout android:id="@+id/layoutData" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="SOC" android:textColor="#8B949E" android:textSize="10sp"
+                android:letterSpacing="0.1" android:layout_marginBottom="4dp"/>
+
+            <TextView android:id="@+id/tvSoc" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="–%"
+                android:textColor="#3FB950" android:textSize="36sp" android:textStyle="bold"
+                android:fontFamily="monospace" android:layout_marginBottom="6dp"/>
+
+            <ProgressBar android:id="@+id/progressSoc"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent" android:layout_height="12dp"
+                android:max="100" android:progressTint="#3FB950"
+                android:progressBackgroundTint="#21262D" android:layout_marginBottom="16dp"/>
+
+            <!-- Siatka wartości -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:layout_marginBottom="8dp">
+
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical"
+                    android:background="#161B22" android:padding="10dp" android:layout_marginEnd="6dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Napięcie" android:textColor="#8B949E" android:textSize="10sp"/>
+                    <TextView android:id="@+id/tvVoltage" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="–"
+                        android:textColor="#58A6FF" android:textSize="18sp" android:textStyle="bold"
+                        android:fontFamily="monospace"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical"
+                    android:background="#161B22" android:padding="10dp" android:layout_marginEnd="6dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Prąd" android:textColor="#8B949E" android:textSize="10sp"/>
+                    <TextView android:id="@+id/tvCurrent" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="–"
+                        android:textColor="#E6EDF3" android:textSize="18sp" android:textStyle="bold"
+                        android:fontFamily="monospace"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical"
+                    android:background="#161B22" android:padding="10dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Moc" android:textColor="#8B949E" android:textSize="10sp"/>
+                    <TextView android:id="@+id/tvPower" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="–"
+                        android:textColor="#D29922" android:textSize="18sp" android:textStyle="bold"
+                        android:fontFamily="monospace"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:layout_marginBottom="12dp">
+                <TextView android:id="@+id/tvTempMos" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="MOS: –" android:textColor="#D29922" android:textSize="13sp"
+                    android:background="#161B22" android:padding="8dp" android:layout_marginEnd="6dp"/>
+                <TextView android:id="@+id/tvTempS1" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="S1: –" android:textColor="#D29922" android:textSize="13sp"
+                    android:background="#161B22" android:padding="8dp" android:layout_marginEnd="6dp"/>
+                <TextView android:id="@+id/tvCapacity" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="– Ah" android:textColor="#58A6FF" android:textSize="13sp"
+                    android:background="#161B22" android:padding="8dp"/>
+            </LinearLayout>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="NAPIĘCIA CEL" android:textColor="#8B949E" android:textSize="10sp"
+                android:letterSpacing="0.1" android:layout_marginBottom="6dp"/>
+            <TextView android:id="@+id/tvCells" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:text="–"
+                android:textColor="#E6EDF3" android:textSize="12sp" android:fontFamily="monospace"
+                android:background="#161B22" android:padding="10dp" android:layout_marginBottom="4dp"/>
+            <TextView android:id="@+id/tvDiff" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:text="Δ – mV"
+                android:textColor="#D29922" android:textSize="12sp" android:layout_marginBottom="12dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="MOSFET" android:textColor="#8B949E" android:textSize="10sp"
+                android:letterSpacing="0.1" android:layout_marginBottom="6dp"/>
+            <TextView android:id="@+id/tvMosfet" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:text="–"
+                android:textColor="#3FB950" android:textSize="13sp" android:fontFamily="monospace"
+                android:background="#161B22" android:padding="10dp" android:layout_marginBottom="12dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="ALARMY" android:textColor="#8B949E" android:textSize="10sp"
+                android:letterSpacing="0.1" android:layout_marginBottom="6dp"/>
+            <TextView android:id="@+id/tvAlarms" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:text="–"
+                android:textSize="13sp" android:background="#161B22"
+                android:padding="10dp" android:layout_marginBottom="20dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
